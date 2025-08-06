@@ -1,18 +1,15 @@
-import { useLinkTo } from "@react-navigation/native";
-import { StyleSheet, Text, } from "react-native";
+// Login.tsx
+import { useNavigation } from "@react-navigation/native";
+import { Text } from "react-native";
+import { FocusFadeView } from "../components/focusFadeView";
 
-
-type ParamsType = {};
-export const Login = ({}: ParamsType) => {
-  const linkTo = useLinkTo();
-  const Redirect = () => {
-    linkTo("/Register");
-  };
-
+export const Login = () => {
+  const navigation = useNavigation();
   return (
-
-      <Text onPress={() => Redirect()}>login23</Text>
-   
+    <FocusFadeView animation="slide">
+      <Text onPress={() => navigation.navigate("Form1" as never)}>
+        Login Screen (tap to go to Register)
+      </Text>
+    </FocusFadeView>
   );
 };
-const styles = StyleSheet.create({});
