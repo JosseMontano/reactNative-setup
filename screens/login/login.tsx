@@ -1,7 +1,7 @@
 // Login.tsx
 import { useNavigation } from "@react-navigation/native";
 import { Text } from "react-native";
-import { FocusFadeView } from "../components/focusFadeView";
+import { FocusFadeView } from "../../components/focusFadeView";
 
 export const Login = () => {
   const navigation = useNavigation();

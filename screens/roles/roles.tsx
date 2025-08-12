@@ -11,22 +11,18 @@ import {
   FlatList,
 } from "react-native";
 import { useEffect, useState } from "react";
-
-const BACKENDURL = "http://192.168.1.3:3000/";
-
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-});
+import { BACKENDURL } from "../../constants/endpoints";
+import { schema } from "./validations/rolesForm";
+import { Role } from "./interfaces/roles";
 
 type FormValues = z.infer<typeof schema>;
 
 export const Form1 = () => {
-  const [roles, setRoles] = useState<{ id: number; name: string }[]>([]);
+  const [roles, setRoles] = useState([] as Role[]);
   const [selectedRoleId, setSelectedRoleId] = useState<number | null>(null);
 
   const {
     control,
-    register,
     setValue,
     handleSubmit,
     reset,
@@ -36,9 +32,8 @@ export const Form1 = () => {
   });
 
   useEffect(() => {
-    register("name");
     fetchRoles();
-  }, [register]);
+  }, []);
 
   const fetchRoles = async () => {
     try {
@@ -61,7 +56,13 @@ export const Form1 = () => {
           },
           body: JSON.stringify(data),
         });
-        const updated = await res.json();
+        const updated = await res.json() as Role
+        setRoles((prevRoles) =>
+          prevRoles.map((role) =>
+            role.id === selectedRoleId ? updated : role
+          )
+        );
+        Alert.alert("Success", "Role updated successfully");
       } else {
         // POST (Create)
         const res = await fetch(BACKENDURL + "roles", {
@@ -71,7 +72,9 @@ export const Form1 = () => {
           },
           body: JSON.stringify(data),
         });
-        const created = await res.json();
+        const created = await res.json() as Role
+        setRoles((prevRoles) => [...prevRoles, created]);
+        Alert.alert("Success", "Role created successfully");
       }
 
       reset();
@@ -92,7 +95,7 @@ export const Form1 = () => {
       await fetch(BACKENDURL + `roles/${id}`, {
         method: "DELETE",
       });
-      fetchRoles();
+      setRoles((prevRoles) => prevRoles.filter((role) => role.id !== id));
     } catch (error) {
       console.error("Delete error:", error);
     }
@@ -148,7 +151,6 @@ export const Form1 = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    marginTop: 40,
   },
   heading: {
     fontSize: 24,

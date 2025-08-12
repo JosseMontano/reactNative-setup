@@ -1,7 +1,7 @@
 // Register.tsx
 import { useNavigation } from "@react-navigation/native";
 import { Text } from "react-native";
-import { FocusFadeView } from "../components/focusFadeView";
+import { FocusFadeView } from "../../components/focusFadeView";
 
 export const Register = () => {
   const navigation = useNavigation();

@@ -5,9 +5,9 @@ import {
 } from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { Login } from "./screens/login";
-import { Register } from "./screens/register";
-import { Form1 } from "./screens/form1";
+import { Login } from "./screens/login/login";
+import { Register } from "./screens/register/register";
+import { Form1 } from "./screens/roles/roles";
 import { Text } from "react-native";
 import { withSafeArea } from "./components/safeArea";
 
