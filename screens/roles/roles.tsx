@@ -12,12 +12,12 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { BACKENDURL } from "../../constants/endpoints";
-import { schema } from "./validations/rolesForm";
-import { Role } from "./interfaces/roles";
+import { rolesForm } from "./validations/rolesForm";
+import { Role } from "./interfaces/role";
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = z.infer<typeof rolesForm>;
 
-export const Form1 = () => {
+export const Roles = () => {
   const [roles, setRoles] = useState([] as Role[]);
   const [selectedRoleId, setSelectedRoleId] = useState<number | null>(null);
 
@@ -28,7 +28,7 @@ export const Form1 = () => {
     reset,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(rolesForm),
   });
 
   useEffect(() => {
@@ -79,13 +79,12 @@ export const Form1 = () => {
 
       reset();
       setSelectedRoleId(null);
-      fetchRoles();
     } catch (error) {
       console.error("Submit error:", error);
     }
   };
 
-  const handleEdit = (role: { id: number; name: string }) => {
+  const handleEdit = (role: Role) => {
     setSelectedRoleId(role.id);
     setValue("name", role.name);
   };

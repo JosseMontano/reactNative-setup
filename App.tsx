@@ -7,14 +7,16 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { Login } from "./screens/login/login";
 import { Register } from "./screens/register/register";
-import { Form1 } from "./screens/roles/roles";
+import { Roles } from "./screens/roles/roles";
 import { Text } from "react-native";
 import { withSafeArea } from "./components/safeArea";
+import { Posts } from "./screens/posts/posts";
 
 // Define your root stack param list for type safety
 type RootStackParamList = {
   Tabs: undefined;
-  Form1: undefined;
+  Roles: undefined;
+  Posts: undefined;
 };
 
 type TabParamList = {
@@ -70,7 +72,8 @@ export default function App() {
           }}
         >
           <Stack.Screen name="Tabs" component={TabNavigator} />
-          <Stack.Screen name="Form1" component={withSafeArea(Form1)} />
+          <Stack.Screen name="Roles" component={withSafeArea(Roles)} />
+          <Stack.Screen name="Posts" component={withSafeArea(Posts)} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

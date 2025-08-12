@@ -7,9 +7,8 @@ export const Login = () => {
   const navigation = useNavigation();
   return (
     <FocusFadeView animation="slide">
-      <Text onPress={() => navigation.navigate("Form1" as never)}>
-        Login Screen (tap to go to Register)
-      </Text>
+      <Text onPress={() => navigation.navigate("Roles" as never)}>ROLES</Text>
+      <Text onPress={() => navigation.navigate("Posts" as never)}>POSTS</Text>
     </FocusFadeView>
   );
 };
